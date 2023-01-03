@@ -7,7 +7,7 @@ public class methodoutput {
     public static void main(String[] args) {
         int z = myMethod(5, 3);
         System.out.println(z);
-        z = z + 3;
+        z = z + 4;
         System.out.println(z);
         //abc
 
