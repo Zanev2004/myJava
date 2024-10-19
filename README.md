@@ -1,1 +1,1 @@
-These are my coding projects for JAVA. Each project has its own file
+These are all my coding projects for JAVA
