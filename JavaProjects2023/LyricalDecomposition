@@ -1,1 +1,105 @@
+// Java 11 using Visual Studio Code and Ubuntu
+// Cop 3330 - Spring 2023
+// Program #1
 
+public class LyricalDecomposition
+{
+      public static void main(String[] args)
+      {
+          printLyrics();
+      }
+    static void printLyrics()
+    {
+        fly();
+        spider();
+        bird();
+        cat();
+        dog();
+        horse();
+    }
+    static void fly()
+    {
+        System.out.println("There was an old woman who swallowed a fly.");
+        die();
+    }
+    static void die()
+    {
+        System.out.println("I don't know why she swallowed that fly");
+        System.out.println("Perhaps she'll die.");
+    }
+    static void spider()
+    {
+        System.out.println("There was an old woman who swallowed a spider," );
+        System.out.println("That wriggled and iggled and jiggled inside her!");
+        spidertofly();
+        die();
+    }
+
+    static void spidertofly()
+    {
+        System.out.println("She swallowed the spider to catch the fly.");
+    }
+
+
+    static void bird()
+    {
+        System.out.println("There was an old woman who swallowed a bird.");
+        System.out.println("How absurd, to swallow a bird!");
+        birdtospider();
+        spidertofly();
+        die();
+    }
+
+    static void birdtospider()
+    {
+        System.out.println("She swallowed the bird to catch the spider.");
+    }
+
+
+    static void cat()
+    {
+        System.out.println("There was an old woman who swallowed a cat.");
+        System.out.println("Imagine that, to swallow a cat!");
+        cattobird();
+        birdtospider();
+        spidertofly();
+        die();
+    }
+
+    static void cattobird()
+    {
+        System.out.println("She swallowed the cat to catch the bird.");
+    }
+
+    static void dog()
+    {
+        System.out.println("There was an old woman who swallowed a dog.");
+        System.out.println("What a hog, to swallow a dog!");
+        dogtocat();
+        cattobird();
+        birdtospider();
+        spidertofly();
+        die();
+    }
+
+    static void dogtocat()
+    {
+        System.out.println("She swallowed the dog to catch the cat.");
+    }
+
+    static void horse()
+    {
+        System.out.println("There was an old woman who swallowed a horse.");
+        System.out.println("She died, of course!");
+    }
+
+    public static double difficultyRating()
+    {
+        return 1;
+    }
+
+    public static double hoursSpent()
+    {
+        return 3;
+    }
+}
