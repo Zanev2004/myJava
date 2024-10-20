@@ -1,0 +1,104 @@
+import java.util.*;
+
+public class PotionMaster
+{
+	public static Map<String, Set<String>> potionToReagentsMap(List<PotionInfo> potionsManual)
+	{
+		Map<String, Set<String>> map = new HashMap<>();
+		// Iterate through each potion in the potions list
+		for (PotionInfo potion : potionsManual)
+		{
+			String potionName = potion.name;
+			List<String> reagents = potion.reagents;
+
+			// Create a new set for the reagents of this potion
+			Set<String> reagentsSet = new HashSet<>(reagents);
+
+			// Add the potion name and reagents set to the map
+			map.put(potionName, reagentsSet);
+		}
+		return map;
+	}
+	public static Map<String, Set<String>> reagentToPotionsMap(List<PotionInfo> potionsManual)
+	{
+		Map<String, Set<String>> map = new HashMap<>();
+		for (PotionInfo potion : potionsManual)
+		{
+			String potionName = potion.name;
+			List<String> reagents = potion.reagents;
+			for (String reagent : reagents)
+			{
+				// If the map already contains the reagent as a key,
+				// add the potion name to the set of potions
+				// associated with that reagent.
+				if (map.containsKey(reagent))
+				{
+					Set<String> potions = map.get(reagent);
+					potions.add(potionName);
+				}
+				// If the map does not contain the reagent as a key,
+				// create a new set with the potion name
+				// and put it in the map with the reagent as the key.
+				else
+				{
+					Set<String> potions = new HashSet<>();
+					potions.add(potionName);
+					map.put(reagent, potions);
+				}
+			}
+		}
+		return map;
+	}
+	public static boolean canBrewPotion(PotionInfo potionInfo, Set<String> reagentsOnHand)
+	{
+		// Get the name of the potion to brew
+		String potionToBrew = potionInfo.name;
+
+		// Get the set of reagents required for the potion to brew
+		Set<String> reagentsRequired = new HashSet<>(potionInfo.reagents);
+
+		// Check if all the required reagents are present in the reagents on hand
+		return reagentsOnHand.containsAll(reagentsRequired);
+	}
+	public static boolean canBrewPotion(String potionToBrew,
+	                                    Map<String, Set<String>> potionToReagentsMap,
+	                                    Set<String> reagentsOnHand)
+	{
+		// Get the set of reagents required for the potion to brew
+		Set<String> reagentsRequired = potionToReagentsMap.get(potionToBrew);
+
+		// Check if all the required reagents are present in the reagents on hand
+		return reagentsOnHand.containsAll(reagentsRequired);
+	}
+	public static Set<String> allPossiblePotions(Map<String, Set<String>> potionToReagentsMap,
+	                                             Map<String, Set<String>> reagentToPotionsMap,
+	                                             Set<String> reagentsOnHand)
+	{
+		Set<String> possiblePotions = new HashSet<>();
+
+		for (String reagent : reagentsOnHand)
+		{
+			if (reagentToPotionsMap.containsKey(reagent))
+			{
+				possiblePotions.addAll(reagentToPotionsMap.get(reagent));
+			}
+		}
+		// Check if there are no possible potions
+		if (possiblePotions.isEmpty())
+		{
+			return new HashSet<>(); // Return empty set
+		}
+		else
+		{
+			return possiblePotions;
+		}
+	}
+	public static double difficultyRating()
+	{
+		return 3.0;
+	}
+	public static double hoursSpent()
+	{
+		return 20.0;
+	}
+}
