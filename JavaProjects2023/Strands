@@ -1,0 +1,290 @@
+// COP 3330 - Spring 2023
+// Program #3
+
+import java.util.Arrays;
+
+public class Strands {
+
+
+    public static double difficultyRating(){
+
+        return 5; // A hard assignment
+    }
+
+    public static double hoursSpent(){
+
+        return 25; //Probably spent more!
+    }
+
+
+
+
+
+    public static void straightAndNarrow(String str) {
+
+            if (str == null){
+                System.out.println("Pshh!");
+            }else {
+                char[] chars = str.toCharArray();
+                for (char c : chars) {
+                    if(c == ' '){
+                        System.out.println();
+                    }else{
+                        System.out.println("  " + c);
+                    }
+                }
+            }
+        }
+
+    public static void straightAndNarrow(String str, int n){
+
+        if (str == null){
+            System.out.println("Pshh!");
+        }else {
+            char[] chars = str.toCharArray();
+            for (char c : chars) {
+
+                if(c == ' '){
+                    System.out.println();
+                }else {
+                    for (int i = 0; i < n; i++) {
+                        System.out.print(" ");
+                    }
+                    System.out.println(c);
+                }
+            }
+        }
+
+    }
+
+
+
+
+    public static void meanderingPath(String str) {
+
+        int[] spacing = {2, 2, 2, 3, 4, 5, 5, 5, 4, 3}; // spacing sequence
+        int spacingIndex = 0; // index into the spacing sequence
+
+
+        for (int i = 0; i < str.length(); i++) {
+            if (i == 0) {
+                System.out.print(" ");
+            }
+
+            if (str.charAt(i)==' '){
+                System.out.println();
+            }else {
+                // print spaces before each asterisk
+                for (int j = 0; j < spacing[spacingIndex]; j++) {
+                    System.out.print(" ");
+                }
+                // print the asterisk
+                System.out.println(str.charAt(i));
+            }
+            // advance to the next spacing in the sequence
+            spacingIndex = (spacingIndex + 1) % spacing.length;
+        }
+    }
+
+
+    public static void printspaceandchar(char[] chararr, int n)
+    {
+        // print the correct number of spaces first
+        for (int i = 0; i < n; i++)
+            System.out.print(" ");
+
+        // next loop prints the chars if any
+        for (int j = 0; j < chararr.length; j++)
+        {
+            // check variable is used to determine whether to break the loop
+            int check = 0;
+
+            // The loop looks for the last character and then works backwards
+            for (int k = chararr.length - 1; k > j; k--)
+            {
+                // only print if a char of some type is present
+                if (chararr[k] != ' ')
+                {
+                    // prints the char + 2 spaces to pad correctly
+                    System.out.print(chararr[j] + "  ");
+                    check = 1;
+                    // end the loop because a char has been identified
+                    break;
+                }
+            }
+
+            // if check is still zero, then we have found the last char
+            if (check == 0) {
+                if (chararr[j] != ' ') {
+                    // if it's not a space, print it
+                    System.out.print(chararr[j]);
+                    break;
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    public static int lengthcheck(String [] str)
+    {
+        // find the longest string index
+        int index = 0;
+
+        // For all strings after the first
+        for (int i = 1; i < str.length; i++)
+            // loop through all strings
+            if (str[i].length() > str[index].length())
+                index = i;
+        return index;
+    }
+
+    public static void printit(char [] currentch, int checkcntr, int i)
+    {
+        if (checkcntr == 0)
+            System.out.println();
+            // if first one then add 3 spaces
+        else if (i == 0)
+            printspaceandchar(currentch, 3);
+        else
+        {
+            int pos = (i+1) % 10;
+
+            // follow the  {2, 2, 2, 3, 4, 5, 5, 5, 4, 3};  spacing sequence
+            if (pos == 1 || pos == 2 || pos == 3)
+                printspaceandchar(currentch, 2);
+            else if (pos == 0 || pos == 4)
+                printspaceandchar(currentch, 3);
+            else if (pos == 5 || pos == 9)
+                printspaceandchar(currentch, 4);
+            else
+                printspaceandchar(currentch, 5);
+        }
+    }
+    public static void classicRapunzel(String [] str)
+    {
+        if (str == null)
+            System.out.println("Pshh!");
+        else
+        {
+            // indexlongest is the index pos of the longest string
+            int indexlongest = lengthcheck(str);
+
+            // initialize arraytofill with the strings passed
+            char[] arraytofill = new char[str.length];
+
+            for (int i = 0; i < str[indexlongest].length(); i++)
+            {
+                // fill arraytofill with spaces
+                Arrays.fill(arraytofill, ' ');
+                // initializes counter to zero
+                int checkcntr = 0;
+
+                for (int j = 0; j < str.length; j++)
+                {
+                    // checks if the jth string is longer than i to prevent out of bounds error
+                    if (str[j].length() > i && str[j].charAt(i) != ' ')
+                    {
+                        arraytofill[j] = str[j].charAt(i);
+                        checkcntr++;  // show that the line isn't empty
+                    }
+                }
+
+                printit(arraytofill, checkcntr, i);
+            }
+        }
+    }
+
+    public static void steamyMocha(String [] str)
+    {
+        if (str == null)
+            System.out.println("Pshh!");
+        else
+        {
+            int n = lengthcheck(str);
+            int length = str[n].length();
+
+            // look for odd one
+            if (n % 2 == 1)
+                // add a space
+                length++;
+
+            char[] arraytofill = new char[str.length];
+
+            for (int i = 0; i < length; i++)
+            {
+                Arrays.fill(arraytofill, ' ');
+                int checkcntr = 0;
+
+                //  loop for even ones
+                for (int j = 0; j < str.length; j += 2)
+                {
+                    if (str[j].length() > i && str[j].charAt(i) != ' ')
+                    {
+                        arraytofill[j] = str[j].charAt(i);
+                        checkcntr++;
+                    }
+                }
+
+                if (i != 0)
+                {
+                    //  loop for odd ones
+                    for (int k = 1; k < str.length; k += 2)
+                    {
+                        if (str[k].length() > i - 1 && str[k].charAt(i - 1) != ' ')
+                        {
+                            arraytofill[k] = str[k].charAt(i - 1);
+                            checkcntr++;
+                        }
+                    }
+                }
+
+                printit(arraytofill, checkcntr, i);
+
+            }
+        }
+    }
+
+    public static void cascadingWaterfall(String [] str)
+    {
+        if (str == null)
+            System.out.println("Pshh!");
+        else
+        {
+            int n = lengthcheck(str);
+            int length = str[n].length() + n;
+
+            char[] arraytofill = new char[str.length];
+
+            for (int i = 0; i < length; i++)
+            {
+                Arrays.fill(arraytofill, ' ');
+                int checkctr = 0;
+
+                // first char is initialized
+                // without a for loop
+                if (str[0].length() > i && str[0].charAt(i) != ' ')
+                {
+                    arraytofill[0] = str[0].charAt(i);
+                    checkctr++;
+                }
+
+                // loop through the rest
+                for (int k = 1; k < str.length; k++)
+                {
+                    // stop if  k {vertical counter} is more than the horizontal counter i
+                    if (k > i)
+                        break;
+
+                    if (str[k].length() > i - k && str[k].charAt(i - k) != ' ')
+                    {
+                        arraytofill[k] = str[k].charAt(i - k);
+                        checkctr++;
+                    }
+                }
+
+                printit(arraytofill, checkctr, i);
+            }
+        }
+    }
+
+}
