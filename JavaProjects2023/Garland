@@ -1,0 +1,164 @@
+/*
+class Node {
+    char data;  // Each node holds a single character.
+     Node next;  // Reference to next string's first node (provided we are at
+    // the first node in some string; if not, this is null).
+     Node down;  // Reference to node with the next character in this string.
+    // This is the only available constructor for this class.
+     Node(char data)
+     {
+         this.data = data;
+     }
+}
+*/
+
+public class Garland {
+
+    private Node head;  // Reference to the top-left node in this garland.
+    private int size;   // The number of strings currently in this garland.
+    // node of linked list
+   /* static class Node {
+        char data;
+        Node next;
+        Node down;
+    };
+    */
+    // returns head pointer of linked list
+    // constructed from 2D matrix
+    static Node construct(char arr[][], int i, int j, int m,
+                          int n)
+    {
+        // return if i or j is out of bounds
+        if (i > m - 1 || j > n - 1)
+            return null;
+        // Check if node is previously created then,
+        // don't need to create new/
+      /*  if (visited[i][j] != null) {
+            return visited[i][j];
+        }*/
+        // create a new node for current i and j
+        // and recursively allocate its 'down' and
+        // 'next' pointers
+        Node temp = new Node(arr[i][j]);
+        //System.out.print(" temp: " + temp);
+       // visited[i][j] = temp;
+        //temp.data = arr[i][j];
+        temp.next = construct(arr, i, j + 1, m, n);
+        temp.down = construct(arr, i + 1, j, m, n);
+        return temp;
+    }
+
+    static Node constructvertical(char arr[][], int i, int j, int m,
+                          int n, Node[][] visited)
+    {
+        // return if i or j is out of bounds
+        if (i > m - 1 || j > n - 1)
+            return null;
+        // Check if node is previously created then,
+        // don't need to create new/
+       /* if (visited[i][j] != null) {
+            return visited[i][j];
+        }*/
+        // create a new node for current i and j
+        // and recursively allocate its 'down' and
+        // 'next' pointers
+        Node temp = new Node(arr[j][i]);
+        //System.out.print(" temp: " + temp);
+       // visited[i][j] = temp;
+        //temp.data = arr[i][j];
+        //temp.next = construct(arr, i, j + 1, m, n, visited);
+        //temp.down = construct(arr, i + 1, j, m, n, visited);
+
+        temp.next = constructvertical(arr, i, j + 1, m, n, visited);
+        temp.down = constructvertical(arr, i + 1, j, m, n, visited);
+        return temp;
+    }
+
+    // utility function for displaying
+    // linked list data
+    static void display(Node head)
+    {
+        // pointer to move right
+        Node Rp;
+        // pointer to move down
+        Node Dp = head;
+        // loop till node->down is not NULL
+        while (Dp != null) {
+            Rp = Dp;
+            // loop till node->next is not NULL
+            while (Rp != null) {
+                System.out.print(Character.toString(Rp.data) + " ");
+                //System.out.print("head: " + head);
+
+
+               // System.out.print("-");
+                Rp = Rp.next;
+            }
+            System.out.println();
+            Dp = Dp.down;
+        }
+    }
+    // driver program
+    public static void main(String args[])
+    {
+        // 2D matrix
+        char[][] arr = { { 'c', 'a', 't', 's' },
+                { 'd', 'o', 'g', 's' },
+                { 'b', 'i', 'r', 'd' },
+                { 'f', 'i', 's', 'h','e' } };
+        int m = 4, n = 4;
+
+        Node[][] visited = new Node[m][n];
+       // Node header = construct(arr, 0, 0, m, n, visited);
+        Node header = constructvertical(arr, 0, 0, m, n, visited);
+
+        display(header);
+        System.out.println("head: " + header);
+
+        System.out.println("PP header: ");
+        printyPrint(header);
+
+        System.out.println("PP header.next: ");
+        printyPrint(header.next);
+
+    }
+
+/*    public Node head(){
+
+        System.out.println("headXX: " + head);
+       return Node;
+    }*/
+
+    public static void printyPrint(Node header)
+    {
+     /*   if (isEmpty())
+        {
+            System.out.println("\n  (empty list)\n");
+            return;
+        }*/
+
+        System.out.println();
+        //System.out.println("header: " + header);
+
+        // This iterates through each node in the linked list.
+        for (Node curr = header; curr != null; curr = curr.next)
+        {
+            printNode(curr);
+        }
+
+    }
+     static void printNode(Node n)
+    {
+        System.out.println();
+        System.out.println(n + ":");
+        System.out.println("  data: " + n.data);
+        System.out.println("  next: " + n.next);
+    }
+
+    public boolean isEmpty()
+    {
+        // Alternatively, we could check whether size == 0.
+        return head == null;
+    }
+}
+
